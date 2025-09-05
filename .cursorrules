@@ -1,0 +1,37 @@
+# Supply Chain Management System - Cursor Rules
+
+## Project Context
+- React + TypeScript + Vite
+- Mantine UI for business components
+- Magic UI for landing page animations
+- i18n for internationalization (en, es, de, fr)
+- Prisma ORM with PostgreSQL
+- Docker containerized deployment
+
+## Code Standards
+1. **Always use TypeScript** - no `any` types unless absolutely necessary
+2. **Always use i18n** - no hardcoded text strings in components
+3. **Component structure**: Functional components with hooks
+4. **File naming**: PascalCase for components, camelCase for utilities
+5. **Imports**: Use absolute imports from `@/` when available
+
+## Key Patterns
+- Use Mantine components for all business UI
+- Use `useTranslation` hook for all text
+- Keep components small and focused
+- Prefer composition over inheritance
+- Use Prisma for all database operations
+
+## Common Imports
+```typescript
+import { useTranslation } from 'react-i18next'
+import { notifications } from '@mantine/notifications'
+import { Container, Text, Button, Group } from '@mantine/core'
+```
+
+## Avoid
+- Hardcoded strings (use i18n)
+- Direct DOM manipulation
+- Class components
+- Inline styles (use Mantine theme)
+- Console.log in production code

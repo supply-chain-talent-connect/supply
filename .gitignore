@@ -28,4 +28,8 @@ dist-ssr
 .env.local
 .env.production
 
+# Generated files
 /src/generated/prisma
+
+# Claude/Cursor configs
+.claude/
