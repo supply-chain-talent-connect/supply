@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  supply-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: supply-app
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - supply-network
+
+  # Optional: Add a local PostgreSQL for development
+  # Uncomment if you want a local database instead of using 10.0.20.3
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: supply-db
+  #   environment:
+  #     POSTGRES_USER: supply_user
+  #     POSTGRES_PASSWORD: supply_s3cur3_p@ss
+  #     POSTGRES_DB: supply
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - supply-network
+  #   restart: unless-stopped
+
+networks:
+  supply-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:

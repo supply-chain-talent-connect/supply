@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  supply-app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: supply-app-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/src/generated
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://supply_user:supply_s3cur3_p@ss@10.0.20.3:5432/supply
+    restart: unless-stopped
+    networks:
+      - supply-network
+
+networks:
+  supply-network:
+    driver: bridge
