@@ -1,0 +1,106 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "*.config.js",
+    "*.config.ts",
+    "vite.config.ts",
+    "src/generated/**",
+    ".claude/**",
+    "public/**"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:i18next/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react-refresh",
+    "i18next"
+  ],
+  "rules": {
+    // TypeScript rules - practical, not anal
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn", { 
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_"
+    }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    
+    // i18n rules - THIS IS IMPORTANT
+    "i18next/no-literal-string": ["warn", {
+      "markupOnly": false,
+      "ignoreAttribute": [
+        "data-testid",
+        "to",
+        "href",
+        "name",
+        "type",
+        "id",
+        "className",
+        "size",
+        "variant",
+        "color",
+        "position",
+        "order",
+        "cols",
+        "spacing",
+        "mt",
+        "mb",
+        "ml",
+        "mr",
+        "radius",
+        "leftSection",
+        "rightSection"
+      ],
+      "ignore": [
+        "^[A-Z][A-Z0-9_-]*$",  // Constants like API_KEY
+        "^[0-9]+$",            // Numbers
+        "^[./#-]",             // Paths and CSS selectors
+        "^(GET|POST|PUT|DELETE|PATCH)$" // HTTP methods
+      ],
+      "ignoreComponent": [
+        "Trans",
+        "Translation"
+      ]
+    }],
+    
+    // React rules
+    "react-refresh/only-export-components": ["warn", {
+      "allowConstantExport": true
+    }],
+    
+    // General rules - practical
+    "no-console": ["warn", { 
+      "allow": ["warn", "error"] 
+    }],
+    "no-debugger": "warn",
+    "prefer-const": "warn",
+    "no-var": "error",
+    "eqeqeq": ["warn", "smart"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
