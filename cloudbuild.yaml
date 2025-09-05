@@ -32,9 +32,9 @@ steps:
     - '--port'
     - '80'
     - '--set-secrets'
-    - 'DATABASE_PASSWORD=db-password:latest,DATABASE_HOST=db-host:latest'
+    - 'DATABASE_PASSWORD=db-password:latest,DATABASE_HOST=db-host:latest,BUCKET_ASSETS_PUBLIC=bucket-assets-public:latest,BUCKET_USER_PRIVATE=bucket-user-private:latest'
     - '--set-env-vars'
-    - 'DATABASE_NAME=supply_db,DATABASE_USER=postgres,DATABASE_PORT=5432'
+    - 'DATABASE_NAME=supply_db,DATABASE_USER=postgres,DATABASE_PORT=5432,STORAGE_TYPE=gcs'
 
 # Build timeout
 timeout: '1200s'
