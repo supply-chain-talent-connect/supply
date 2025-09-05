@@ -7,10 +7,10 @@ function App() {
   return (
     <Container size="md" mt="xl">
       <Title order={1}>{t('welcome')}</Title>
-      <Text mt="md">Supply Chain Management System</Text>
+      <Text mt="md">{t('app.description')}</Text>
       <Group mt="xl">
-        <Button>Get Started</Button>
-        <Button variant="light">Learn More</Button>
+        <Button>{t('app.getStarted')}</Button>
+        <Button variant="light">{t('app.learnMore')}</Button>
       </Group>
     </Container>
   )

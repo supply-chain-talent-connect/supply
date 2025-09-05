@@ -5,6 +5,11 @@
     "about": "About",
     "contact": "Contact"
   },
+  "app": {
+    "description": "Supply Chain Management System",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
