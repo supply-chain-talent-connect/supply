@@ -7,7 +7,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/supply-app:$COMMIT_SHA']
   
-  # Deploy container image to Cloud Run
+  # Deploy container image to Cloud Run with secrets
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -31,6 +31,10 @@ steps:
     - '0'
     - '--port'
     - '80'
+    - '--set-secrets'
+    - 'DATABASE_PASSWORD=db-password:latest,DATABASE_HOST=db-host:latest'
+    - '--set-env-vars'
+    - 'DATABASE_NAME=supply_db,DATABASE_USER=postgres,DATABASE_PORT=5432'
 
 # Build timeout
 timeout: '1200s'
