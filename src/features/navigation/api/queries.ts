@@ -56,7 +56,10 @@ export async function fetchCompanyInfo(): Promise<{
   }
 }
 
-export async function fetchFileMeta(id: string, fields: string[] = ['id', 'type', 'width', 'height']): Promise<any | undefined> {
+export async function fetchFileMeta(
+  id: string,
+  fields: string[] = ['id', 'type', 'width', 'height'],
+): Promise<Record<string, unknown> | undefined> {
   try {
     return await directus.request(readFile(id, { fields }))
   } catch {

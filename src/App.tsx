@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import AppLayout from '@/app/layout/AppLayout'
+import Hero from '@/components/marketing/Hero'
 
 function App() {
   useEffect(() => {
@@ -8,7 +9,7 @@ function App() {
   }, [])
   return (
     <AppLayout>
-      <div className="prose max-w-none" />
+      <Hero />
     </AppLayout>
   )
 }

@@ -1,6 +1,5 @@
-/* eslint-disable i18next/no-literal-string */
 import * as React from 'react'
-import { Book, Menu, Sunset, Trees, Zap } from 'lucide-react'
+import { Book, Menu, Sunset, Trees, Zap, X } from 'lucide-react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import {
@@ -23,18 +22,13 @@ interface MenuItem {
 }
 
 interface Navbar1Props {
-  logo?: { url: string; src: string; alt: string; title: string }
+  logo?: { url: string; src: string; alt: string; title?: string }
   menu?: MenuItem[]
   auth?: { login: { title: string; url: string }; signup: { title: string; url: string } }
 }
 
 const Navbar1 = ({
-  logo = {
-    url: 'https://www.shadcnblocks.com',
-    src: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg',
-    alt: 'logo',
-    title: 'Shadcnblocks.com',
-  },
+  logo,
   menu = [
     { title: 'Home', url: '#' },
     {
@@ -65,12 +59,18 @@ const Navbar1 = ({
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
-              {logo.title ? (
-                <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
-              ) : null}
-            </a>
+            {logo ? (
+              <a href={logo.url} className="flex items-center gap-2">
+                <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
+                {logo.title ? (
+                  <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
+                ) : null}
+              </a>
+            ) : (
+              <div className="flex items-center gap-2">
+                <div className="size-8 animate-pulse rounded-full bg-muted" />
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center">
@@ -94,9 +94,13 @@ const Navbar1 = ({
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
-            </a>
+            {logo ? (
+              <a href={logo.url} className="flex items-center gap-2">
+                <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
+              </a>
+            ) : (
+              <div className="size-8 rounded-full bg-muted" />
+            )}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -106,11 +110,22 @@ const Navbar1 = ({
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <a href={logo.url} className="flex items-center gap-2">
-                      <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
-                    </a>
+                    {logo ? (
+                      <a href={logo.url} className="flex items-center gap-2">
+                        <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
+                      </a>
+                    ) : (
+                      <div className="size-8 rounded-full bg-muted" />
+                    )}
                   </SheetTitle>
                 </SheetHeader>
+                <div className="absolute right-3 top-3">
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="icon" aria-label="Close">
+                      <X className="size-5" />
+                    </Button>
+                  </SheetTrigger>
+                </div>
                 <div className="flex flex-col gap-6 p-4">
                   <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
                     {menu.map((item) => renderMobileMenuItem(item))}

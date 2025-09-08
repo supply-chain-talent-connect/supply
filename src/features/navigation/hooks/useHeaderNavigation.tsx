@@ -55,7 +55,7 @@ export function useHeaderNavigation() {
     })
 
     const pickT = (i: NavItem) =>
-      i.translations?.find((t) => t.languages_code === locale) || i.translations?.[0] || ({} as any)
+      i.translations?.find((t) => t.languages_code === locale) || i.translations?.[0] || { languages_code: locale, label: '' }
 
     const toUrl = (i: NavItem) => i.href || '#'
 
@@ -88,4 +88,3 @@ export function useHeaderNavigation() {
 }
 
 export default useHeaderNavigation
-
