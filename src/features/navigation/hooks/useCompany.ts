@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react'
-import { fetchCompanyLogo } from '../api/queries'
+import { fetchCompanyInfo } from '../api/queries'
 
-export function useCompanyLogo() {
-  const [logoId, setLogoId] = useState<string | undefined>()
+export function useCompanyInfo() {
+  const [info, setInfo] = useState<{ logoId?: string; name?: string } | undefined>()
   useEffect(() => {
     let active = true
-    fetchCompanyLogo().then((id) => {
-      if (active) setLogoId(id)
+    fetchCompanyInfo().then((res) => {
+      if (active) setInfo(res)
     })
     return () => {
       active = false
     }
   }, [])
-  return logoId
+  return info
 }
-
-export default useCompanyLogo
-
+export default useCompanyInfo

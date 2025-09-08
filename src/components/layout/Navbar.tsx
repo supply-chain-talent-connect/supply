@@ -60,25 +60,27 @@ const Navbar1 = ({
 }: Navbar1Props) => {
   return (
     <section className="py-4">
-      <div className="container">
+      <div className="container max-w-[1600px]">
         {/* Desktop Menu */}
-        <nav className="hidden justify-between lg:flex">
+        <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
               <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
-              <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
+              {logo.title ? (
+                <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
+              ) : null}
             </a>
+          </div>
+          <div className="flex items-center gap-6">
             <div className="flex items-center">
               <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="justify-end">
                   {menu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
                 <NavigationMenuViewport />
               </NavigationMenu>
             </div>
-          </div>
-          <div className="flex gap-2">
             <Button asChild variant="outline" size="sm">
               <a href={auth.login.url}>{auth.login.title}</a>
             </Button>
