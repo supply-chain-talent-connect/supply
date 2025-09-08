@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Keila</Name>
+  <Repository>pentacent/keila:latest</Repository>
+  <Registry>https://hub.docker.com/r/pentacent/keila</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://www.keila.io/docs</Support>
+  <Project>https://github.com/pentacent/keila</Project>
+  <Overview>Keila is a 100% Open Source newsletter tool. With Keila, privacy comes first. Keila doesn't sell your data and doesn't track your contacts. Self-host with the official Docker image.</Overview>
+  <Category>Productivity: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:4000]</WebUI>
+  <TemplateURL/>
+  <Icon>https://www.keila.io/favicon.ico</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled></DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Web Port" Target="4000" Default="4000" Mode="tcp" Description="Web interface port" Type="Port" Display="always" Required="true" Mask="false">4000</Config>
+  <Config Name="Database URL" Target="DB_URL" Default="postgres://magicsocial_user:tnd6xpw0byg.ytd4DJW@10.0.20.3:5432/keila_db" Mode="" Description="PostgreSQL connection string" Type="Variable" Display="always" Required="true" Mask="false">postgres://magicsocial_user:tnd6xpw0byg.ytd4DJW@10.0.20.3:5432/keila_db</Config>
+  <Config Name="Secret Key Base" Target="SECRET_KEY_BASE" Default="" Mode="" Description="64+ character secret key (required)" Type="Variable" Display="always" Required="true" Mask="true">0ylCinlELkQ0+uCNmrHkYnqiF1TawGam1hHWhsNCsXv7zycgl/eUm4y7la/0ZAfW</Config>
+  <Config Name="URL Host" Target="URL_HOST" Default="10.0.20.3:4000" Mode="" Description="Host and port for Keila instance" Type="Variable" Display="always" Required="true" Mask="false">10.0.20.3:4000</Config>
+  <Config Name="URL Schema" Target="URL_SCHEMA" Default="http" Mode="" Description="URL scheme (http or https)" Type="Variable" Display="always" Required="true" Mask="false">http</Config>
+  <Config Name="Admin Email" Target="KEILA_USER" Default="brad.a.johnson@gmail.com" Mode="" Description="Admin user email" Type="Variable" Display="always" Required="true" Mask="false">brad.a.johnson@gmail.com</Config>
+  <Config Name="Admin Password" Target="KEILA_PASSWORD" Default="" Mode="" Description="Admin user password" Type="Variable" Display="always" Required="true" Mask="true">ihOCzCzTzN44zqF7neUI42Dk</Config>
+  <Config Name="SMTP Host" Target="MAILER_SMTP_HOST" Default="smtp.resend.com" Mode="" Description="SMTP server for system emails" Type="Variable" Display="always" Required="true" Mask="false">smtp.resend.com</Config>
+  <Config Name="SMTP Port" Target="MAILER_SMTP_PORT" Default="465" Mode="" Description="SMTP server port" Type="Variable" Display="always" Required="true" Mask="false">465</Config>
+  <Config Name="SMTP From Email" Target="MAILER_SMTP_FROM_EMAIL" Default="hello@magicsocial.ai" Mode="" Description="System email from address" Type="Variable" Display="always" Required="true" Mask="false">hello@magicsocial.ai</Config>
+  <Config Name="SMTP Username" Target="MAILER_SMTP_USER" Default="resend" Mode="" Description="SMTP username (resend for Resend API)" Type="Variable" Display="always" Required="true" Mask="false">resend</Config>
+  <Config Name="SMTP Password/API Key" Target="MAILER_SMTP_PASSWORD" Default="" Mode="" Description="SMTP password or Resend API key" Type="Variable" Display="always" Required="true" Mask="true">re_fENTfZtD_FY5iKSHrAkiF58nTh1CTADfU</Config>
+  <Config Name="Enable SSL" Target="MAILER_ENABLE_SSL" Default="true" Mode="" Description="Enable SSL for SMTP" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="Disable Registration" Target="DISABLE_REGISTRATION" Default="false" Mode="" Description="Disable user registration" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="User Uploads Directory" Target="/keila/uploads" Default="/mnt/user/appdata/keila/uploads" Mode="rw" Description="Directory for user uploads" Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/keila/uploads</Config>
+</Container>

@@ -1,0 +1,39 @@
+steps:
+  # Deploy the official listmonk image directly to Cloud Run with environment variables
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'listmonk'
+    - '--image'
+    - 'listmonk/listmonk:latest'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    - '--allow-unauthenticated'
+    - '--memory'
+    - '1Gi'
+    - '--cpu'
+    - '1'
+    - '--max-instances'
+    - '2'
+    - '--min-instances'
+    - '0'
+    - '--port'
+    - '9000'
+    - '--timeout'
+    - '300'
+    - '--add-cloudsql-instances'
+    - 'supply-chain-talent-connect:us-central1:supply-postgres-micro'
+    - '--set-env-vars'
+    - 'LISTMONK_app__address=0.0.0.0:9000,LISTMONK_db__host=/cloudsql/supply-chain-talent-connect:us-central1:supply-postgres-micro,LISTMONK_db__port=5432,LISTMONK_db__user=postgres,LISTMONK_db__database=listmonk_db,LISTMONK_db__ssl_mode=disable'
+    - '--set-secrets'
+    - 'LISTMONK_db__password=db-password:latest'
+
+# Build timeout
+timeout: '600s'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

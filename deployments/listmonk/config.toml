@@ -1,0 +1,23 @@
+[app]
+address = "0.0.0.0:9000"
+admin_username = "admin"
+admin_password = "admin"
+
+[db]
+host = "/cloudsql/supply-chain-talent-connect:us-central1:supply-postgres-micro"
+port = 5432
+user = "postgres"
+password = "$DATABASE_PASSWORD"
+database = "listmonk_db"
+ssl_mode = "disable"
+max_open = 25
+max_idle = 25
+max_lifetime = "300s"
+
+[smtp]
+enabled = false
+
+[media_uploads]
+provider = "filesystem"
+filesystem.upload_path = "./uploads"
+filesystem.upload_uri = "/uploads"

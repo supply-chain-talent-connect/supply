@@ -12,6 +12,10 @@ RUN npm ci --legacy-peer-deps
 # Copy source code
 COPY . .
 
+# Inject build-time Directus URL for Vite
+ARG VITE_DIRECTUS_URL
+ENV VITE_DIRECTUS_URL=$VITE_DIRECTUS_URL
+
 # Generate Prisma client
 RUN npx prisma generate
 

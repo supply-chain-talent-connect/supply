@@ -1,18 +1,15 @@
-import { Container, Title, Text, Button, Group } from '@mantine/core'
-import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
+import AppLayout from '@/app/layout/AppLayout'
 
 function App() {
-  const { t } = useTranslation()
-
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.debug('App mounted')
+  }, [])
   return (
-    <Container size="md" mt="xl">
-      <Title order={1}>{t('welcome')}</Title>
-      <Text mt="md">{t('app.description')}</Text>
-      <Group mt="xl">
-        <Button>{t('app.getStarted')}</Button>
-        <Button variant="light">{t('app.learnMore')}</Button>
-      </Group>
-    </Container>
+    <AppLayout>
+      <div className="prose max-w-none" />
+    </AppLayout>
   )
 }
 

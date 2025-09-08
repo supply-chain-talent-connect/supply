@@ -1,0 +1,21 @@
+FROM alpine:3.18
+
+# Install required packages
+RUN apk add --no-cache ca-certificates tzdata
+
+# Create app directory
+WORKDIR /listmonk
+
+# Download and extract listmonk binary
+RUN wget https://github.com/knadh/listmonk/releases/download/v5.0.3/listmonk_5.0.3_linux_amd64.tar.gz && \
+    tar -xzf listmonk_5.0.3_linux_amd64.tar.gz && \
+    rm listmonk_5.0.3_linux_amd64.tar.gz && \
+    chmod +x listmonk
+
+# Copy startup script
+COPY start.sh /listmonk/start.sh
+RUN chmod +x /listmonk/start.sh
+
+EXPOSE 9000
+
+CMD ["/listmonk/start.sh"]

@@ -3,12 +3,70 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "forCompanies": "For Companies",
+    "forCandidates": "For Candidates"
   },
   "app": {
     "description": "Supply Chain Management System",
     "getStarted": "Get Started",
     "learnMore": "Learn More"
+  },
+  "brand": {
+    "name": "Supply"
+  },
+  "actions": {
+    "getStarted": "Get Started",
+    "viewAll": "View all",
+    "exploreMore": "Explore more features",
+    "more": "More",
+    "forCompanies": "For Companies → Hire Talent",
+    "forCandidates": "For Candidates → Find Roles",
+    "hireNow": "Hire Supply Chain Talent Now",
+    "applyNow": "Apply to Join the Network",
+    "scheduleDemo": "Schedule a Demo",
+    "learnMore": "Learn More"
+  },
+  "hero": {
+    "badge": "Elite Supply Chain Talent Network",
+    "title": "The Supply Chain Talent Marketplace Built for",
+    "highlight": "Speed & Precision",
+    "subtitle": "Where growth-stage companies hire elite operators — and top talent lands their next big role."
+  },
+  "companies": {
+    "title": "Stop losing revenue waiting on the wrong hires.",
+    "subtitle": "We connect you with vetted operators across GTM, Ops, Tech, and Leadership — fast.",
+    "cards": {
+      "vettedTitle": "Vetted Elite Operators",
+      "vettedDesc": "Top 10% of talent with proven outcomes",
+      "fastTitle": "Lightning-Fast Hiring",
+      "fastDesc": "Time-to-hire in days, not months",
+      "revenueTitle": "Stop Revenue Loss",
+      "revenueDesc": "Reduce costly mis-hires and delays",
+      "specializedTitle": "Specialized Expertise",
+      "specializedDesc": "Focused on supply chain and logistics"
+    }
+  },
+  "final": {
+    "title": "Hire faster. Land better roles. Own your career.",
+    "subtitle": "One marketplace. Two doors.",
+    "companies": {
+      "title": "For Companies",
+      "desc": "Access vetted operators who can scale your business."
+    },
+    "candidates": {
+      "title": "For Candidates",
+      "desc": "Join an exclusive network with real opportunities."
+    }
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact Us",
+    "copyright": "© {{year}} {{brand}}. All rights reserved."
+  },
+  "nav": {
+    "title": "Navigation"
   },
   "common": {
     "loading": "Loading...",

@@ -1,0 +1,47 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/umami:latest', '.']
+    dir: 'deployments/umami'
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/umami:latest']
+  
+  
+  # Deploy container image to Cloud Run with secrets
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'umami'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/umami:latest'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    - '--allow-unauthenticated'
+    - '--memory'
+    - '512Mi'
+    - '--cpu'
+    - '1'
+    - '--max-instances'
+    - '2'
+    - '--min-instances'
+    - '0'
+    - '--port'
+    - '3000'
+    - '--add-cloudsql-instances'
+    - 'supply-chain-talent-connect:us-central1:supply-postgres-micro'
+    - '--set-secrets'
+    - 'DATABASE_URL=umami-database-url:latest'
+    - '--set-env-vars'
+    - 'DATABASE_TYPE=postgresql'
+
+# Build timeout
+timeout: '600s'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

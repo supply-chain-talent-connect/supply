@@ -1,0 +1,85 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/directus:latest', '.']
+    dir: 'deployments/directus'
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/directus:latest']
+  
+  # Generate random keys for Directus
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      # Generate random key and secret
+      openssl rand -base64 32 | gcloud secrets create directus-key --data-file=- --project=supply-chain-talent-connect 2>/dev/null || \
+      openssl rand -base64 32 | gcloud secrets versions add directus-key --data-file=- --project=supply-chain-talent-connect
+      
+      openssl rand -base64 32 | gcloud secrets create directus-secret --data-file=- --project=supply-chain-talent-connect 2>/dev/null || \
+      openssl rand -base64 32 | gcloud secrets versions add directus-secret --data-file=- --project=supply-chain-talent-connect
+  
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'directus'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/directus:latest'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    - '--allow-unauthenticated'
+    - '--memory'
+    - '1Gi'
+    - '--cpu'
+    - '1'
+    - '--max-instances'
+    - '3'
+    - '--min-instances'
+    - '0'
+    - '--port'
+    - '8055'
+    - '--timeout'
+    - '300'
+    - '--add-cloudsql-instances'
+    - 'supply-chain-talent-connect:us-central1:supply-postgres-micro'
+    - '--set-env-vars'
+    - 'DB_CLIENT=pg'
+    - '--set-env-vars'
+    - 'DB_HOST=/cloudsql/supply-chain-talent-connect:us-central1:supply-postgres-micro'
+    - '--set-env-vars'
+    - 'DB_PORT=5432'
+    - '--set-env-vars'
+    - 'DB_DATABASE=directus_db'
+    - '--set-env-vars'
+    - 'DB_USER=postgres'
+    - '--set-env-vars'
+    - 'ADMIN_EMAIL=admin@example.com'
+    - '--set-env-vars'
+    - 'ADMIN_PASSWORD=changeme123'
+    - '--set-env-vars'
+    - 'PUBLIC_URL=https://directus-ynj5h3auha-uc.a.run.app'
+    - '--set-env-vars'
+    - 'STORAGE_LOCATIONS=gcs'
+    - '--set-env-vars'
+    - 'STORAGE_GCS_DRIVER=gcs'
+    - '--set-env-vars'
+    - 'STORAGE_GCS_BUCKET=supply-assets-public'
+    - '--set-secrets'
+    - 'DB_PASSWORD=db-password:latest'
+    - '--set-secrets'
+    - 'KEY=directus-key:latest'
+    - '--set-secrets'
+    - 'SECRET=directus-secret:latest'
+
+# Build timeout
+timeout: '600s'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
