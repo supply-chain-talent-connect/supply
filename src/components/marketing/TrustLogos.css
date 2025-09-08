@@ -1,0 +1,46 @@
+/* TrustLogos marquee animation and utilities */
+
+.trust-logos-marquee {
+  overflow: hidden;
+}
+
+.trust-logos-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: max-content;
+  animation: trust-marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+/* Pause on hover and respect reduced motion */
+.trust-logos-track:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .trust-logos-track { animation: none; }
+}
+
+@keyframes trust-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Monochrome mask item: fills logo silhouette with color */
+.logo-mask {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* Full-bleed utility to escape centered containers */
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}

@@ -12,6 +12,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix --ignore-pattern 'src/generated/**'",
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
+    "directus:schema:lowercase": "node scripts/directus-lowercase-schema.mjs",
     "docker:build": "docker build -t supply-app .",
     "docker:run": "docker run -p 3000:80 supply-app",
     "docker:compose:up": "docker-compose up -d",

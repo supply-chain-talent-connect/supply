@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `src/`: React + TypeScript app (Mantine UI). Keep UI in `components/`, helpers in `lib/`, and avoid editing `src/generated/**` (Prisma client output).
+- `src/`: React + TypeScript app (Tailwind + shadcn/ui). Keep UI in `components/`, helpers in `lib/`, and avoid editing `src/generated/**` (Prisma client output).
 - `public/`: Static assets and i18n files at `public/locales/<lng>/translation.json`.
 - `prisma/`: Prisma schema (`prisma/schema.prisma`) that generates the client into `src/generated/prisma`.
 - `deployments/`: Service manifests and supporting files for auxiliary apps.
@@ -28,7 +28,7 @@
 - Aim for meaningful coverage of hooks, utilities, and critical UI flows.
 
 ## Commit & Pull Request Guidelines
-- Commits: Imperative, concise subjects (e.g., "Fix linting configuration", "Add Mantine setup"). Group related changes.
+- Commits: Imperative, concise subjects (e.g., "Fix linting configuration", "Add Tailwind/shadcn setup"). Group related changes.
 - PRs: Include a clear summary, screenshots for UI changes, linked issues, and notes on breaking changes or migrations (e.g., Prisma updates).
 - Keep diffs focused; pass `lint` and `type-check` before opening.
 
@@ -36,4 +36,3 @@
 - Env: Use `.env.development`/`.env.production`; never commit secrets. Key vars: `DATABASE_URL`, storage bucket settings.
 - Cloud: Secrets are managed via Google Secret Manager and injected in Cloud Run (`cloudbuild.yaml`).
 - Scripts like `update_umami_secret.sh` assume GCP auth; avoid running outside GCP context.
-

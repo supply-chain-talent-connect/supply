@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import AppLayout from '@/app/layout/AppLayout'
 import Hero from '@/components/marketing/Hero'
+import TrustLogos from '@/components/marketing/TrustLogos'
 
 function App() {
   useEffect(() => {
@@ -10,6 +11,9 @@ function App() {
   return (
     <AppLayout>
       <Hero />
+      <div className="py-8 md:py-12">
+        <TrustLogos />
+      </div>
     </AppLayout>
   )
 }

@@ -12,11 +12,19 @@ interface MapProps {
     end: { lat: number; lng: number; label?: string };
   }>;
   lineColor?: string;
+  startDelay?: number;
+  arcDuration?: number;
+  arcGap?: number;
+  sequential?: boolean;
 }
 
 export default function WorldMap({
   dots = [],
   lineColor = "#0ea5e9",
+  startDelay = 0.5,
+  arcDuration = 3,
+  arcGap = 0.6,
+  sequential = true,
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const map = new DottedMap({ height: 100, grid: "diagonal" });
@@ -63,6 +71,9 @@ export default function WorldMap({
         {dots.map((dot, i) => {
           const startPoint = projectPoint(dot.start.lat, dot.start.lng);
           const endPoint = projectPoint(dot.end.lat, dot.end.lng);
+          const delay = sequential
+            ? startDelay + i * (arcDuration + arcGap)
+            : startDelay + i * arcGap;
           return (
             <g key={`path-group-${i}`}>
               <motion.path
@@ -72,14 +83,16 @@ export default function WorldMap({
                 strokeWidth="1"
                 initial={{
                   pathLength: 0,
+                  opacity: 0,
                 }}
                 animate={{
                   pathLength: 1,
+                  opacity: 1,
                 }}
                 transition={{
-                  duration: 1,
-                  delay: 0.5 * i,
-                  ease: "easeOut",
+                  duration: arcDuration,
+                  delay,
+                  ease: "easeInOut",
                 }}
                 key={`start-upper-${i}`}
               ></motion.path>
