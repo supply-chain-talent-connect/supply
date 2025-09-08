@@ -19,11 +19,12 @@ export function useNavigation() {
   const locale = i18n.language?.split('-')[0] || 'en'
 
   const { topLinks, cta, childrenByParent } = useMemo(() => {
-    const links = items.filter((n) => !n.isButton && (!n.parent || !n.parent.id))
+    const parentId = (n: NavItem) => (typeof n.parent === 'object' ? n.parent?.id : n.parent)
+    const links = items.filter((n) => !n.isButton && !parentId(n))
     const grouped: Record<string | number, NavItem[]> = {}
     items.forEach((n) => {
-      if (n.parent?.id) {
-        const pid = n.parent.id
+      const pid = parentId(n)
+      if (pid) {
         if (!grouped[pid]) grouped[pid] = []
         grouped[pid].push(n)
       }

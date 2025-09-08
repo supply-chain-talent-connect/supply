@@ -23,7 +23,7 @@ export type Company = {
 
 export async function fetchCompanyLogo(): Promise<string | undefined> {
   try {
-    const company = (await directus.request(readItem<Company>('company', 1, { fields: ['id', 'logo'] }))) as Company
+    const company = (await directus.request(readItem('company', 1, { fields: ['id', 'logo'] }))) as Company
     const logoVal = company?.logo
     return typeof logoVal === 'string' ? logoVal : logoVal?.id
   } catch {
@@ -39,7 +39,7 @@ export async function fetchCompanyInfo(): Promise<{
 } | undefined> {
   try {
     const company = (await directus.request(
-      readItem<Company>('company', 1, { fields: ['id', 'logo', 'favicon', 'name', 'useFaviconInHeader'] }),
+      readItem('company', 1, { fields: ['id', 'logo', 'favicon', 'name', 'useFaviconInHeader'] }),
     )) as Company
     const logoVal = company?.logo
     const favVal = company?.favicon
@@ -70,7 +70,7 @@ export async function fetchFileMeta(
 export async function fetchHeaderNavigation(): Promise<NavItem[]> {
   try {
     const items = (await directus.request(
-      readItems<NavItem>('navigation', {
+      readItems('navigation', {
         filter: { location: { _eq: 'header' }, status: { _eq: 'published' } },
         fields: [
           'id',

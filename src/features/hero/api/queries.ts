@@ -16,7 +16,7 @@ export type HeroTranslation = {
 export async function fetchHero(locale: string, heroId = 1): Promise<HeroTranslation | undefined> {
   try {
     const res = (await directus.request(
-      readItems<HeroTranslation>('hero_translations', {
+      readItems('hero_translations', {
         filter: { hero_id: { _eq: heroId }, languages_code: { _eq: locale } },
         fields: ['id','hero_id','languages_code','heading','heading_highlighted','supporting_text','supporting_text2','CTA','CTA2'],
         limit: 1,
@@ -25,7 +25,7 @@ export async function fetchHero(locale: string, heroId = 1): Promise<HeroTransla
     if (res?.length) return res[0]
     // Fallback to English
     const fallback = (await directus.request(
-      readItems<HeroTranslation>('hero_translations', {
+      readItems('hero_translations', {
         filter: { hero_id: { _eq: heroId }, languages_code: { _eq: 'en' } },
         fields: ['id','hero_id','languages_code','heading','heading_highlighted','supporting_text','supporting_text2','CTA','CTA2'],
         limit: 1,
@@ -48,7 +48,7 @@ export type HeroCity = {
 export async function fetchHeroCities(heroId = 1): Promise<HeroCity[]> {
   try {
     const cities = (await directus.request(
-      readItems<HeroCity>('Map_Cities', {
+      readItems('Map_Cities', {
         filter: { parent: { _eq: heroId }, status: { _eq: 'published' } },
         fields: ['id', 'status', 'parent', 'Name', 'location'],
         limit: 100,

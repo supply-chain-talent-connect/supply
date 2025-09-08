@@ -2,16 +2,17 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { fetchHeaderNavigation, type NavItem } from '@/features/navigation/api/queries'
 import { Book, FileEdit, Search, FileText } from 'lucide-react'
+import type React from 'react'
 
 export type MenuItem = {
   title: string
   url: string
   description?: string
-  icon?: JSX.Element
+  icon?: React.ReactElement
   items?: MenuItem[]
 }
 
-function mapIcon(name?: string | null): JSX.Element | undefined {
+function mapIcon(name?: string | null): React.ReactElement | undefined {
   if (!name) return undefined
   switch (name) {
     case 'manage_search':

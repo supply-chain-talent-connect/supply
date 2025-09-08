@@ -42,8 +42,16 @@ export function Button<E extends AnyEl = 'button'>(props: ButtonProps<E>) {
     <div className={cn('relative inline-flex', containerClassName)} style={{ borderRadius } as React.CSSProperties}>
       <motion.div
         aria-hidden
-        className={cn('pointer-events-none absolute inset-0 rounded-[inherit] p-px', borderClassName)}
-        style={{ backgroundImage: borderGradient, backgroundSize: '200% 100%' } as React.CSSProperties}
+        className={cn('pointer-events-none absolute inset-0 z-10 rounded-[inherit] p-px', borderClassName)}
+        style={{
+          backgroundImage: borderGradient,
+          backgroundSize: '200% 100%',
+          WebkitMask: 'linear-gradient(#000,#000) content-box, linear-gradient(#000,#000)',
+          WebkitMaskComposite: 'xor',
+          mask: 'linear-gradient(#000,#000) content-box, linear-gradient(#000,#000)',
+          maskComposite: 'exclude',
+          borderRadius,
+        } as React.CSSProperties}
         initial={{ backgroundPosition: '0% 50%' }}
         animate={{ backgroundPosition: '200% 50%' }}
         transition={{ duration: duration / 1000, repeat: Infinity, ease: 'linear' }}

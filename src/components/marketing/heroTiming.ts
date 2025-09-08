@@ -1,4 +1,4 @@
-import type React from 'react'
+// no React types needed
 
 // Shared animation cadence
 export const WORD_STEP = 0.1
@@ -41,4 +41,3 @@ export function computeHeroFinishAt(
   const auroraDelay = beforeWords.length * step
   return auroraDelay + duration
 }
-
