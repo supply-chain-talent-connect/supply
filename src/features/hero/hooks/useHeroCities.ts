@@ -14,7 +14,7 @@ export function useHeroCities(heroId = 1) {
         .filter((r) => r.location && Array.isArray(r.location.coordinates))
         .map((r) => {
           const [lng, lat] = r.location!.coordinates
-          return { lat: Number(lat), lng: Number(lng), name: r.Name ?? null }
+          return { lat: Number(lat), lng: Number(lng), name: r.name ?? null }
         })
       setCities(mapped)
     })
@@ -27,4 +27,3 @@ export function useHeroCities(heroId = 1) {
 }
 
 export default useHeroCities
-

@@ -6,7 +6,7 @@ import TrustLogos from '@/components/marketing/TrustLogos'
 function App() {
   useEffect(() => {
     // eslint-disable-next-line no-console
-    console.debug('App mounted')
+  console.debug('App mounted')
   }, [])
   return (
     <AppLayout>

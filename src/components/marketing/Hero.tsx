@@ -14,8 +14,8 @@ export default function Hero() {
   const highlighted = hero?.heading_highlighted ?? ''
   const supporting = hero?.supporting_text ?? 'With AI, you can launch your website in hours, not days.'
   const supporting2 = hero?.supporting_text2 ?? ''
-  const cta1 = hero?.CTA ?? 'Explore Now'
-  const cta2 = hero?.CTA2 ?? 'Contact Support'
+  const cta1 = hero?.cta ?? ''
+  const cta2 = hero?.cta2 ?? ''
   const [finishAt, setFinishAt] = useState(0)
   const hasHeadingNodes = (heading?.trim()?.length ?? 0) > 0
   // Stagger subsequent elements to appear after heading is done

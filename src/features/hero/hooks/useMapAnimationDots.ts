@@ -7,7 +7,7 @@ export type Dot = { start: LatLng; end: LatLng }
 function toLatLng(city?: MapCity | null): LatLng | null {
   if (!city || !city.location || !Array.isArray(city.location.coordinates)) return null
   const [lng, lat] = city.location.coordinates
-  return { lat: Number(lat), lng: Number(lng), name: city.Name ?? null }
+  return { lat: Number(lat), lng: Number(lng), name: city.name ?? null }
 }
 
 export default function useMapAnimationDots(heroId = 1) {
@@ -25,12 +25,12 @@ export default function useMapAnimationDots(heroId = 1) {
       const endRefs: Array<{ animIndex: number; refs: any[] | number[] | null }> = []
 
       rows.forEach((anim, idx) => {
-        startRefs[idx] = anim.start ?? null
+        startRefs[idx] = anim.start_city ?? null
         // collect start id if numeric
-        const s = anim.start as any
+        const s = anim.start_city as any
         if (typeof s === 'number' || typeof s === 'string') needCityIds.push(s)
 
-        const ends = anim.end_city ?? []
+        const ends = anim.end_cities ?? []
         endRefs[idx] = { animIndex: idx, refs: ends }
 
         // M2M numeric ids
@@ -55,7 +55,7 @@ export default function useMapAnimationDots(heroId = 1) {
       // If we have junction ids, resolve them to city ids
       if (needJoinIds.length) {
         const joins = await fetchMapAnimationJunctionByIds(needJoinIds)
-        joins.forEach((j) => needCityIds.push(j.Map_Cities_id))
+        joins.forEach((j) => needCityIds.push(j.cities_id))
       }
 
       // Hydrate missing cities (now includes those from joins)
