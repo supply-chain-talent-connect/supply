@@ -15,5 +15,34 @@
     "edit": "Editar",
     "add": "Agregar",
     "search": "Buscar"
+  },
+  "actions": {
+    "login": "Iniciar sesión",
+    "signup": "Registrarse",
+    "close": "Cerrar"
+  },
+  "pricing": {
+    "badge": {
+      "mostPopular": "Más popular"
+    },
+    "currency": {
+      "pricesIn": "Precios en {{symbol}} {{code}}"
+    },
+    "billing": {
+      "monthly": "Mensual",
+      "annual": "Anual",
+      "save": "ahorra {{percent}} %",
+      "perYearSuffix": "/año",
+      "perMonthSuffix": "/mes",
+      "perMonthShortSuffix": "/mes"
+    },
+    "cta": {
+      "choosePlan": "Elegir plan",
+      "startPro": "Empezar Pro"
+    },
+    "guarantee": {
+      "heading": "Garantía de devolución de dinero de 14 días",
+      "text": "Prueba cualquier plan sin riesgo. Si no obtienes resultados claros, te devolveremos los primeros 14 días."
+    }
   }
 }

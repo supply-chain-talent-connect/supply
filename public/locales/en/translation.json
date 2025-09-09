@@ -1,11 +1,7 @@
 {
   "welcome": "Welcome to Supply",
   "nav": {
-    "home": "Home",
-    "about": "About",
-    "contact": "Contact",
-    "forCompanies": "For Companies",
-    "forCandidates": "For Candidates"
+    "title": "Navigation"
   },
   "app": {
     "description": "Supply Chain Management System",
@@ -25,7 +21,10 @@
     "hireNow": "Hire Supply Chain Talent Now",
     "applyNow": "Apply to Join the Network",
     "scheduleDemo": "Schedule a Demo",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "login": "Login",
+    "signup": "Sign up",
+    "close": "Close"
   },
   "hero": {
     "badge": "Elite Supply Chain Talent Network",
@@ -65,9 +64,6 @@
     "contact": "Contact Us",
     "copyright": "© {{year}} {{brand}}. All rights reserved."
   },
-  "nav": {
-    "title": "Navigation"
-  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
@@ -78,5 +74,29 @@
     "edit": "Edit",
     "add": "Add",
     "search": "Search"
+  },
+  "pricing": {
+    "badge": {
+      "mostPopular": "Most popular"
+    },
+    "currency": {
+      "pricesIn": "Prices in {{symbol}} {{code}}"
+    },
+    "billing": {
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "save": "save {{percent}}%",
+      "perYearSuffix": "/yr",
+      "perMonthSuffix": "/mo",
+      "perMonthShortSuffix": "/mth"
+    },
+    "cta": {
+      "choosePlan": "Choose plan",
+      "startPro": "Start Pro"
+    },
+    "guarantee": {
+      "heading": "14‑day money‑back guarantee",
+      "text": "Try any plan risk‑free. If you’re not getting clear results, we’ll refund your first 14 days."
+    }
   }
 }

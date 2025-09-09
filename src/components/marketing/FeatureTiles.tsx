@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 "use client";
 
 import React from 'react'
@@ -82,3 +83,4 @@ export default function FeatureTiles({ delay = 0, className }: FeatureTilesProps
     </motion.div>
   )
 }
+ 

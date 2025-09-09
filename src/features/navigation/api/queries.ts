@@ -88,10 +88,7 @@ export async function fetchHeaderNavigation(): Promise<NavItem[]> {
         limit: -1,
       }),
     )) as unknown as NavItem[]
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.debug('[navigation]', items)
-    }
+    // muted navigation debug
     return items || []
   } catch {
     return []

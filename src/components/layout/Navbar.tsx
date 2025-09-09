@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Book, Menu, Sunset, Trees, Zap, X } from 'lucide-react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import {
   NavigationMenu,
@@ -12,6 +13,7 @@ import {
   NavigationMenuViewport,
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher'
 
 interface MenuItem {
   title: string
@@ -50,8 +52,13 @@ const Navbar1 = ({
     { title: 'Pricing', url: '#' },
     { title: 'Blog', url: '#' },
   ],
-  auth = { login: { title: 'Login', url: '#' }, signup: { title: 'Sign up', url: '#' } },
+  auth,
 }: Navbar1Props) => {
+  const { t } = useTranslation()
+  const loginTitle = auth?.login?.title || t('actions.login')
+  const signupTitle = auth?.signup?.title || t('actions.signup')
+  const loginUrl = auth?.login?.url || '#'
+  const signupUrl = auth?.signup?.url || '#'
   return (
     <section className="py-4">
       <div className="container max-w-[1600px]">
@@ -81,11 +88,12 @@ const Navbar1 = ({
                 <NavigationMenuViewport />
               </NavigationMenu>
             </div>
+            <LanguageSwitcher />
             <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
+              <a href={loginUrl}>{loginTitle}</a>
             </Button>
             <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
+              <a href={signupUrl}>{signupTitle}</a>
             </Button>
           </div>
         </nav>
@@ -109,33 +117,36 @@ const Navbar1 = ({
               </SheetTrigger>
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
-                  <SheetTitle>
-                    {logo ? (
-                      <a href={logo.url} className="flex items-center gap-2">
-                        <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
-                      </a>
-                    ) : (
-                      <div className="size-8 rounded-full bg-muted" />
-                    )}
-                  </SheetTitle>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <SheetTitle>
+                        {logo ? (
+                          <a href={logo.url} className="flex items-center gap-2">
+                            <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />
+                          </a>
+                        ) : (
+                          <div className="size-8 rounded-full bg-muted" />
+                        )}
+                      </SheetTitle>
+                      <LanguageSwitcher />
+                    </div>
+                    <SheetTrigger asChild>
+                      <Button variant="outline" size="icon" aria-label={t('actions.close')}>
+                        <X className="size-5" />
+                      </Button>
+                    </SheetTrigger>
+                  </div>
                 </SheetHeader>
-                <div className="absolute right-3 top-3">
-                  <SheetTrigger asChild>
-                    <Button variant="outline" size="icon" aria-label="Close">
-                      <X className="size-5" />
-                    </Button>
-                  </SheetTrigger>
-                </div>
                 <div className="flex flex-col gap-6 p-4">
                   <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
                     {menu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
                   <div className="flex flex-col gap-3">
                     <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
+                      <a href={loginUrl}>{loginTitle}</a>
                     </Button>
                     <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
+                      <a href={signupUrl}>{signupTitle}</a>
                     </Button>
                   </div>
                 </div>

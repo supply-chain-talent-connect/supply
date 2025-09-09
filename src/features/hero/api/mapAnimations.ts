@@ -41,12 +41,8 @@ export async function fetchMapAnimations(heroId = 1): Promise<MapAnimation[]> {
       )) as unknown as MapAnimation[]
       if (Array.isArray(items) && items.length) return items
       if (Array.isArray(items)) return []
-    } catch (e) {
-      // try next variant
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn(`[map] failed fetching ${col}`)
-      }
+    } catch {
+      // try next variant silently in production; keep dev console clean
     }
   }
   return []
@@ -67,11 +63,8 @@ export async function fetchCitiesByIds(ids: Array<number | string>): Promise<Map
       )) as unknown as MapCity[]
       if (Array.isArray(rows) && rows.length) return rows
       if (Array.isArray(rows)) return []
-    } catch (e) {
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn(`[map] failed fetching cities from ${col}`)
-      }
+    } catch {
+      // continue
     }
   }
   return []
@@ -98,11 +91,8 @@ export async function fetchMapAnimationJunctionByIds(ids: Array<number | string>
       )) as unknown as MapAnimationCityJunction[]
       if (Array.isArray(rows) && rows.length) return rows
       if (Array.isArray(rows)) return []
-    } catch (e) {
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn(`[map] failed fetching joins from ${col}`)
-      }
+    } catch {
+      // continue
     }
   }
   return []

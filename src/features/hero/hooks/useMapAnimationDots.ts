@@ -44,6 +44,11 @@ export default function useMapAnimationDots(heroId = 1) {
             if (e && typeof e === 'object' && e.city && (typeof e.city === 'number' || typeof e.city === 'string')) {
               needCityIds.push(e.city)
             }
+            // M2M join expanded: { cities_id: <id|object> }
+            if (e && typeof e === 'object' && e.cities_id) {
+              const c = e.cities_id
+              if (typeof c === 'number' || typeof c === 'string') needCityIds.push(c)
+            }
             // M2M expanded city object
             if (e && typeof e === 'object' && e.location) {
               // nothing to collect
@@ -79,36 +84,37 @@ export default function useMapAnimationDots(heroId = 1) {
 
         const ends = endRefs[idx].refs ?? []
 
-        // Try O2M link rows first to preserve sort
-        const o2mCandidates = ends
-          .filter((e: any) => e && typeof e === 'object' && (e.city || e.city === 0))
-          .map((e: any) => {
-            let city: MapCity | null = null
-            if (e.city && typeof e.city === 'object' && e.city.location) city = e.city
-            else if (typeof e.city === 'number') city = byId.get(e.city) ?? null
-            else if (typeof e.city === 'string') city = byId.get(Number(e.city)) ?? null
-            return { city, sort: e.sort ?? 0 }
-          })
-          .filter((x: any) => x.city)
-          .sort((a: any, b: any) => (a.sort ?? 0) - (b.sort ?? 0))
-
-        let endLLs: LatLng[] = []
-        if (o2mCandidates.length) {
-          endLLs = o2mCandidates
-            .map((x: any) => toLatLng(x.city as MapCity))
-            .filter(Boolean) as LatLng[]
-        } else {
-          // Fallback to M2M array (objects or ids), keep listed order
-          endLLs = (ends as any[])
-            .map((e: any) => {
-              if (e && typeof e === 'object' && e.location) return toLatLng(e as MapCity)
-              // e may be a join id -> already converted to city rows in byId
-              if (typeof e === 'number') return toLatLng(byId.get(e) ?? null)
-              if (typeof e === 'string') return toLatLng(byId.get(Number(e)) ?? null)
-              return null
-            })
-            .filter(Boolean) as LatLng[]
+        // Helper to resolve various shapes into a MapCity
+        const resolveCity = (e: any): MapCity | null => {
+          if (!e) return null
+          // Direct city object
+          if (e.location && Array.isArray(e.location.coordinates)) return e as MapCity
+          // O2M link row: { city: <id|object> }
+          if (e.city) {
+            const c = e.city
+            if (typeof c === 'object' && c.location) return c as MapCity
+            const id = typeof c === 'string' ? Number(c) : (c as number)
+            return byId.get(id) ?? null
+          }
+          // M2M join expanded: { cities_id: <id|object> }
+          if (e.cities_id) {
+            const c = e.cities_id
+            if (typeof c === 'object' && c.location) return c as MapCity
+            const id = typeof c === 'string' ? Number(c) : (c as number)
+            return byId.get(id) ?? null
+          }
+          // Raw numeric/string id
+          if (typeof e === 'number' || typeof e === 'string') {
+            const id = typeof e === 'string' ? Number(e) : e
+            return byId.get(id) ?? null
+          }
+          return null
         }
+
+        // Build end city list preserving order; prefer link rows to preserve any sort
+        const endLLs: LatLng[] = (ends as any[])
+          .map((e: any) => toLatLng(resolveCity(e)))
+          .filter(Boolean) as LatLng[]
 
         endLLs.forEach((end) => out.push({ start: startLL, end }))
       })

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import useTrustLogos from '@/features/trust-logos/hooks/useTrustLogos'
+import useLandingBlockCopy from '@/features/pages/hooks/useLandingBlockCopy'
 import { assetUrl } from '@/lib/directus'
 import './TrustLogos.css'
 
@@ -10,7 +11,8 @@ type Props = {
 
 export default function TrustLogos({ sectionId = 1, className }: Props) {
   const data = useTrustLogos(sectionId)
-  const intro = data?.introText
+  const copy = useLandingBlockCopy('trust_logos')
+  const subheading = copy?.subheading
   const isMono = data?.isMonochrome
   const monoColor = data?.monochromeColor
   const scroll = data?.scrollLogos ?? true
@@ -77,10 +79,19 @@ export default function TrustLogos({ sectionId = 1, className }: Props) {
 
   return (
     <section className={['w-full', className].filter(Boolean).join(' ')}>
-      {intro && (
-        <p className="mb-4 text-center text-sm text-neutral-600 dark:text-neutral-400" style={{ textWrap: 'balance' } as React.CSSProperties}>
-          {intro}
-        </p>
+      {(copy?.heading || subheading) && (
+        <div className="mx-auto mb-4 max-w-3xl px-4 text-center">
+          {copy?.heading ? (
+            <h3 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+              {copy.heading}
+            </h3>
+          ) : null}
+          {subheading ? (
+            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400" style={{ textWrap: 'balance' } as React.CSSProperties}>
+              {subheading}
+            </p>
+          ) : null}
+        </div>
       )}
       {scroll ? (
         <div className="trust-logos-marquee full-bleed">

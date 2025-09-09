@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import useHero from '@/features/hero/hooks/useHero'
 import HeroAnimatedHeading from '@/components/marketing/hero/HeroAnimatedHeading'
@@ -49,15 +49,20 @@ export default function Hero() {
           {/* Left: Map (borderless, bleeds to edge, underlaps text) */}
           <HeroMap startDelay={mapDelay} />
           {/* Right: Copy */}
-          <div className="flex flex-col items-start">
-            <HeroAnimatedHeading heading={heading} highlighted={highlighted} onFinishAt={setFinishAt} />
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <HeroAnimatedHeading
+              heading={heading}
+              highlighted={highlighted}
+              onFinishAt={setFinishAt}
+              className="text-center md:text-left mx-auto md:mx-0"
+            />
             {hasHeadingNodes && (
               <>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: paragraphDelay }}
-                  className="relative z-10 max-w-xl py-4 text-left text-lg font-normal text-neutral-600 dark:text-neutral-400"
+                  className="relative z-10 max-w-xl py-4 text-center md:text-left text-lg font-normal text-neutral-600 dark:text-neutral-400"
                 >
                   {supporting}
                 </motion.p>
@@ -65,7 +70,7 @@ export default function Hero() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: ctasDelay }}
-                  className="relative z-10 mt-6 flex flex-wrap items-center justify-start gap-4"
+                  className="relative z-10 mt-6 flex flex-wrap items-center justify-center md:justify-start gap-4"
                 >
                   <MovingBorderButton
                     as="a"
@@ -95,7 +100,7 @@ export default function Hero() {
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: candidatesDelay }}
-                      className="relative z-10 max-w-xl text-left text-sm text-neutral-600 dark:text-neutral-400"
+                      className="relative z-10 max-w-xl text-center md:text-left text-sm text-neutral-600 dark:text-neutral-400"
                       style={{ textWrap: 'balance' } as React.CSSProperties}
                     >
                       {supporting2}

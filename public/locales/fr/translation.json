@@ -15,5 +15,34 @@
     "edit": "Modifier",
     "add": "Ajouter",
     "search": "Rechercher"
+  },
+  "actions": {
+    "login": "Connexion",
+    "signup": "Inscription",
+    "close": "Fermer"
+  },
+  "pricing": {
+    "badge": {
+      "mostPopular": "Le plus populaire"
+    },
+    "currency": {
+      "pricesIn": "Prix en {{symbol}} {{code}}"
+    },
+    "billing": {
+      "monthly": "Mensuel",
+      "annual": "Annuel",
+      "save": "économisez {{percent}} %",
+      "perYearSuffix": "/an",
+      "perMonthSuffix": "/mois",
+      "perMonthShortSuffix": "/mois"
+    },
+    "cta": {
+      "choosePlan": "Choisir l’offre",
+      "startPro": "Commencer Pro"
+    },
+    "guarantee": {
+      "heading": "Garantie de remboursement de 14 jours",
+      "text": "Essayez n’importe quel plan sans risque. Si vous n’obtenez pas de résultats clairs, nous vous remboursons les 14 premiers jours."
+    }
   }
 }

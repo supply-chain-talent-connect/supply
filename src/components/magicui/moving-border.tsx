@@ -4,7 +4,7 @@ import React from 'react'
 import { motion, type MotionProps } from 'motion/react'
 import { cn } from '@/lib/utils'
 
-type AnyEl = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+type AnyEl = keyof JSX.IntrinsicElements | React.JSXElementConstructor<unknown>
 
 export interface MovingBorderProps<E extends AnyEl = 'button'>
   extends Omit<React.ComponentPropsWithoutRef<E>, 'as' | 'children' | 'className'>,
@@ -51,7 +51,7 @@ export function MovingBorder<E extends AnyEl = 'button'>(props: MovingBorderProp
         transition={{ duration: duration / 1000, repeat: Infinity, ease: 'linear' }}
       />
       {React.createElement(
-        Comp as any,
+        Comp as unknown as React.ElementType,
         {
           className: cn(
             'relative isolate inline-flex items-center justify-center text-center rounded-[inherit] px-6 py-3 text-base font-semibold text-white',
