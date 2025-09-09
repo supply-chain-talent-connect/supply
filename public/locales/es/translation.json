@@ -43,6 +43,8 @@
     "guarantee": {
       "heading": "Garantía de devolución de dinero de 14 días",
       "text": "Prueba cualquier plan sin riesgo. Si no obtienes resultados claros, te devolveremos los primeros 14 días."
-    }
+    },
+    "contactPrefix": "¿Necesitas un plan personalizado?",
+    "contactCta": "Hablemos"
   }
 }

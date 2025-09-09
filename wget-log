@@ -1,0 +1,6 @@
+--2025-09-09 15:47:16--  https://auth.openai.com/oauth/authorize?response_type=code
+Resolving auth.openai.com (auth.openai.com)... 172.64.146.15, 104.18.41.241, 2606:4700:4406::6812:29f1, ...
+Connecting to auth.openai.com (auth.openai.com)|172.64.146.15|:443... connected.
+HTTP request sent, awaiting response... 400 Bad Request
+2025-09-09 15:47:16 ERROR 400: Bad Request.
+

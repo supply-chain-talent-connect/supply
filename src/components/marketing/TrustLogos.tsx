@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import useTrustLogos from '@/features/trust-logos/hooks/useTrustLogos'
 import useLandingBlockCopy from '@/features/pages/hooks/useLandingBlockCopy'
+import SectionHeader from '@/components/marketing/SectionHeader'
 import { assetUrl } from '@/lib/directus'
 import './TrustLogos.css'
 
@@ -27,7 +28,8 @@ export default function TrustLogos({ sectionId = 1, className }: Props) {
   }, [data?.logos])
 
   if (!data) return null
-  if (!data.logos?.length && !intro) return null
+  // If there are no logos and no copy, skip rendering
+  if (!data.logos?.length && !subheading) return null
 
   function renderLogo(logo: (typeof data.logos)[number]) {
     const label = logo.alt ?? logo.label
@@ -79,20 +81,7 @@ export default function TrustLogos({ sectionId = 1, className }: Props) {
 
   return (
     <section className={['w-full', className].filter(Boolean).join(' ')}>
-      {(copy?.heading || subheading) && (
-        <div className="mx-auto mb-4 max-w-3xl px-4 text-center">
-          {copy?.heading ? (
-            <h3 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-              {copy.heading}
-            </h3>
-          ) : null}
-          {subheading ? (
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400" style={{ textWrap: 'balance' } as React.CSSProperties}>
-              {subheading}
-            </p>
-          ) : null}
-        </div>
-      )}
+      <SectionHeader heading={copy?.heading} subheading={subheading} size="xl" />
       {scroll ? (
         <div className="trust-logos-marquee full-bleed">
         <div

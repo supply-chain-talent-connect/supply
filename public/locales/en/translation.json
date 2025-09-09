@@ -97,6 +97,8 @@
     "guarantee": {
       "heading": "14‑day money‑back guarantee",
       "text": "Try any plan risk‑free. If you’re not getting clear results, we’ll refund your first 14 days."
-    }
+    },
+    "contactPrefix": "Need a custom plan?",
+    "contactCta": "Let’s talk"
   }
 }

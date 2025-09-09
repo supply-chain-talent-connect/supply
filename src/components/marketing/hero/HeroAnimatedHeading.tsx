@@ -25,7 +25,7 @@ export default function HeroAnimatedHeading({ heading, highlighted, className, o
   return (
     <h1
       className={[
-        'relative z-10 max-w-4xl text-left text-2xl font-bold leading-tight tracking-tight text-slate-700 md:text-4xl lg:text-7xl dark:text-slate-300',
+        'relative z-10 max-w-4xl text-left text-2xl font-bold leading-tight tracking-tight text-slate-900 md:text-4xl lg:text-7xl dark:text-slate-100',
         className,
       ]
         .filter(Boolean)
@@ -147,4 +147,3 @@ function buildHeadingNodes(heading: string, highlighted: string): HeadingBuild {
 
   return { nodes, finishAt: lastIndexDelay + WORD_DURATION }
 }
-

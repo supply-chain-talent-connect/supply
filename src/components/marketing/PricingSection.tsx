@@ -8,6 +8,7 @@ import PricingCard from './PricingCard'
 import { usePricing } from '@/features/pricing/hooks/usePricing'
 import { useTranslation } from 'react-i18next'
 import useLandingBlockCopy from '@/features/pages/hooks/useLandingBlockCopy'
+import SectionHeader from '@/components/marketing/SectionHeader'
 
 type Props = {
   sectionId?: number
@@ -50,17 +51,13 @@ export default function PricingSection({ sectionId = 1 }: Props) {
   }, [i18n.language, currency])
 
   return (
-      <section className="max-w-6xl mx-auto px-2 md:px-4 pt-14 pb-6 relative">
+    <div className="w-full text-slate-900">
+      <section id="pricing" className="scroll-mt-24 max-w-6xl mx-auto px-2 md:px-4 pt-14 pb-6 relative">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="text-center">
-          {copy?.heading ? (
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight">{copy.heading}</h1>
-          ) : null}
-          {copy?.subheading ? (
-            <p className="mt-3 text-slate-600 max-w-2xl mx-auto">{copy.subheading}</p>
-          ) : null}
+          <SectionHeader heading={copy?.heading} subheading={copy?.subheading} size="xl" className="mb-0 px-0" />
 
           {/* Billing toggle */}
-          <div className="mt-6 flex items-center justify-center gap-2 md:gap-3 text-xs md:text-sm">
+          <div className="mt-4 flex items-center justify-center gap-2 md:gap-3 text-xs md:text-sm">
             <span className={!annual ? 'font-semibold' : 'text-slate-500'}>{t('pricing.billing.monthly')}</span>
             <Switch className="h-5 w-9 md:h-6 md:w-11" checked={annual} onCheckedChange={setAnnual} />
             <span className={annual ? 'font-semibold' : 'text-slate-500'}>
@@ -147,12 +144,10 @@ export default function PricingSection({ sectionId = 1 }: Props) {
         </div>
       </section>
 
-      {/* Contact note (from translations) directly under pricing grid */}
-      {data?.contactHtml && (
-        <section className="max-w-6xl mx-auto px-4 pb-6">
-          <div className="text-center text-sm text-slate-500" dangerouslySetInnerHTML={{ __html: data.contactHtml }} />
-        </section>
-      )}
+      {/* Footer note */}
+      <footer className="pb-16 text-center text-sm text-slate-500">
+        {t('pricing.contactPrefix')} <a href="/contact" className="underline">{t('pricing.contactCta')}</a>.
+      </footer>
 
       {/* Trust / Guarantee (Directus with i18n fallback) */}
       {(() => {

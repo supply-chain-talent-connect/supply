@@ -10,12 +10,6 @@ export type TrustLogosSection = {
   scroll_speed?: number | null
 }
 
-export type TrustLogosSectionTranslation = {
-  id: number
-  trust_logos_id: number
-  languages_code: string
-  intro_text?: string | null
-}
 
 export type TrustLogoImage = {
   id: number
@@ -33,7 +27,6 @@ export type TrustLogoImageTranslation = {
 }
 
 export type TrustLogosData = {
-  introText?: string
   isMonochrome?: boolean
   monochromeColor?: string
   enableLinks?: boolean
@@ -50,7 +43,6 @@ export type TrustLogosData = {
 
 export async function fetchTrustLogos(locale: string, sectionId = 1): Promise<TrustLogosData | undefined> {
   let section: TrustLogosSection | undefined
-  let introText: string | undefined
   let logos: TrustLogoImage[] = []
   const altMap = new Map<number, string | undefined>()
 
@@ -65,23 +57,7 @@ export async function fetchTrustLogos(locale: string, sectionId = 1): Promise<Tr
     if (import.meta.env.DEV) console.warn('[trust-logos] section fetch failed', e)
   }
 
-  // Fetch translations for intro (tolerate failure)
-  try {
-    const translations = (await directus.request(
-      readItems<TrustLogosSectionTranslation>('trust_logos_translations', {
-        filter: { trust_logos_id: { _eq: sectionId }, languages_code: { _in: [locale, 'en'] } },
-        fields: ['id', 'trust_logos_id', 'languages_code', 'intro_text'],
-        sort: ['languages_code'],
-        limit: -1,
-      }),
-    )) as unknown as TrustLogosSectionTranslation[]
-    introText =
-      translations.find((t) => t.languages_code === locale)?.intro_text ??
-      translations.find((t) => t.languages_code === 'en')?.intro_text ??
-      undefined
-  } catch (e) {
-    if (import.meta.env.DEV) console.warn('[trust-logos] translations fetch failed', e)
-  }
+  // Removed: section intro translations fetch (collection no longer exists)
 
   // Fetch logos list (required to render)
   try {
@@ -120,7 +96,6 @@ export async function fetchTrustLogos(locale: string, sectionId = 1): Promise<Tr
   }
 
   return {
-    introText,
     isMonochrome: !!section?.is_monochrome,
     monochromeColor: section?.monochrome_color ?? undefined,
     enableLinks: section?.enable_links ?? true,

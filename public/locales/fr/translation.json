@@ -43,6 +43,8 @@
     "guarantee": {
       "heading": "Garantie de remboursement de 14 jours",
       "text": "Essayez n’importe quel plan sans risque. Si vous n’obtenez pas de résultats clairs, nous vous remboursons les 14 premiers jours."
-    }
+    },
+    "contactPrefix": "Besoin d’un plan sur mesure ?",
+    "contactCta": "Discutons-en"
   }
 }

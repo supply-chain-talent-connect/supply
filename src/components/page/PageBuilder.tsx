@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { fetchLandingPageOrder, type LandingPageBlock } from '@/features/pages/api/queries'
 import Hero from '@/components/marketing/Hero'
 import TrustLogos from '@/components/marketing/TrustLogos'
@@ -20,6 +21,7 @@ const registry: Record<string, React.ComponentType<unknown>> = {
 
 export default function PageBuilder() {
   const [blocks, setBlocks] = useState<LandingPageBlock[]>([])
+  const location = useLocation()
   useEffect(() => {
     let active = true
     fetchLandingPageOrder().then((rows) => {
@@ -29,6 +31,24 @@ export default function PageBuilder() {
       active = false
     }
   }, [])
+
+  // Scroll to hash target once blocks are rendered
+  useEffect(() => {
+    const id = (location.hash || '').slice(1)
+    if (!id) return
+    // give the UI a tick to mount
+    const t = window.setTimeout(() => {
+      const el = document.getElementById(id)
+      if (el && 'scrollIntoView' in el) {
+        try {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } catch {
+          el.scrollIntoView()
+        }
+      }
+    }, 50)
+    return () => window.clearTimeout(t)
+  }, [blocks, location.hash])
 
   return (
     <>
