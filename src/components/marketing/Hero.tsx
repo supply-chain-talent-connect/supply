@@ -18,7 +18,7 @@ export default function Hero() {
   const cta2 = hero?.cta2 ?? ''
   const [finishAt, setFinishAt] = useState(0)
   const hasHeadingNodes = (heading?.trim()?.length ?? 0) > 0
-  // Stagger subsequent elements to appear after heading is done
+  // Stagger subsequent elements to appear after heading is done.
   const paragraphDelay = finishAt + 0.1
   const ctasDelay = finishAt + 0.25
   const dividerDelay = ctasDelay + 0.1

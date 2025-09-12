@@ -39,6 +39,7 @@ jobs:
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ vars.UNRAID_HOST }}
+          port: 2222
           username: ${{ vars.UNRAID_SSH_USER }}
           key: ${{ secrets.UNRAID_SSH_KEY }}
           script_stop: true
