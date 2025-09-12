@@ -1,0 +1,50 @@
+name: Update GitHub Actions IPs
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight UTC
+  workflow_dispatch:      # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-ips:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Fetch and Update GitHub Actions IPs
+        run: |
+          set -euo pipefail
+          
+          # Create public directory if it doesn't exist
+          mkdir -p public
+          
+          # Fetch GitHub Actions IPs
+          echo "# GitHub Actions IP Addresses" > public/github-actions-ips.txt
+          echo "# Last updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> public/github-actions-ips.txt
+          echo "" >> public/github-actions-ips.txt
+          
+          curl -s https://api.github.com/meta \
+            | jq -r '.actions[]' \
+            | grep -E '^[0-9]+\.' >> public/github-actions-ips.txt
+          
+          echo "" >> public/github-actions-ips.txt
+          echo "# Total IPs: $(grep -c '^[0-9]' public/github-actions-ips.txt || echo 0)" >> public/github-actions-ips.txt
+      
+      - name: Commit and Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add public/github-actions-ips.txt
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update GitHub Actions IP addresses [skip ci]"
+            git push
+          fi
