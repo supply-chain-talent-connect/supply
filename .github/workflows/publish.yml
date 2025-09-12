@@ -38,7 +38,7 @@ jobs:
       - name: Deploy to Unraid over SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ vars.UNRAID_HOST }}
+          host: 68.62.17.254
           port: 2222
           username: ${{ vars.UNRAID_SSH_USER }}
           key: ${{ secrets.UNRAID_SSH_KEY }}
