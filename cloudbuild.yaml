@@ -43,4 +43,4 @@ timeout: '1200s'
 options:
   logging: CLOUD_LOGGING_ONLY
 substitutions:
-  _VITE_DIRECTUS_URL: https://directus-98533098228.us-central1.run.app
+  _VITE_DIRECTUS_URL: https://admin.bradjohnson.ai

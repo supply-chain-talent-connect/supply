@@ -171,7 +171,7 @@ import_to_cloud_sql() {
     # Import using psql
     log_info "Importing data to Cloud SQL..."
     PGPASSWORD="$CLOUD_SQL_PASSWORD" psql -h "$CLOUD_SQL_IP" -U "$CLOUD_SQL_USER" -d "$CLOUD_SQL_DB" \
-        -f "$CLEANED_PATH" > /dev/null 2>&1
+        -f "$CLEANED_PATH" 2>&1 | grep -E "(ERROR|FATAL|WARNING)" || true
     
     if [ $? -eq 0 ]; then
         log_info "Data imported successfully"
@@ -188,8 +188,10 @@ verify_migration() {
     TABLE_COUNT=$(PGPASSWORD="$CLOUD_SQL_PASSWORD" psql -h "$CLOUD_SQL_IP" -U "$CLOUD_SQL_USER" -d "$CLOUD_SQL_DB" \
         -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" | xargs)
     
-    # Count Map_Cities
+    # Count Map_Cities (try both uppercase and lowercase)
     CITIES_COUNT=$(PGPASSWORD="$CLOUD_SQL_PASSWORD" psql -h "$CLOUD_SQL_IP" -U "$CLOUD_SQL_USER" -d "$CLOUD_SQL_DB" \
+        -t -c "SELECT COUNT(*) FROM map_cities;" 2>/dev/null | xargs || \
+        PGPASSWORD="$CLOUD_SQL_PASSWORD" psql -h "$CLOUD_SQL_IP" -U "$CLOUD_SQL_USER" -d "$CLOUD_SQL_DB" \
         -t -c "SELECT COUNT(*) FROM \"Map_Cities\";" 2>/dev/null | xargs || echo "0")
     
     # Check hero data
@@ -219,12 +221,14 @@ main() {
     prepare_cloud_sql
     
     # Check for --clean flag
-    if [ "$1" == "--clean" ]; then
+    if [ "$1" == "--clean" ] || [ "$1" == "--clean-force" ]; then
         log_warning "Running with --clean flag will DROP all existing data!"
-        read -p "Are you sure? (yes/no): " confirm
-        if [ "$confirm" != "yes" ]; then
-            log_info "Migration cancelled"
-            exit 0
+        if [ "$1" != "--clean-force" ]; then
+            read -p "Are you sure? (yes/no): " confirm
+            if [ "$confirm" != "yes" ]; then
+                log_info "Migration cancelled"
+                exit 0
+            fi
         fi
         import_to_cloud_sql --clean
     else

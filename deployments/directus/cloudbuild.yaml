@@ -8,18 +8,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/directus:latest']
   
-  # Generate random keys for Directus
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      # Generate random key and secret
-      openssl rand -base64 32 | gcloud secrets create directus-key --data-file=- --project=supply-chain-talent-connect 2>/dev/null || \
-      openssl rand -base64 32 | gcloud secrets versions add directus-key --data-file=- --project=supply-chain-talent-connect
-      
-      openssl rand -base64 32 | gcloud secrets create directus-secret --data-file=- --project=supply-chain-talent-connect 2>/dev/null || \
-      openssl rand -base64 32 | gcloud secrets versions add directus-secret --data-file=- --project=supply-chain-talent-connect
+  # IMPORTANT: Use pre-existing secrets in Secret Manager for Directus KEY/SECRET and DB password.
+  # We intentionally do not create or rotate those here to avoid overwriting known values.
   
   # Deploy container image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -40,9 +30,9 @@ steps:
     - '--cpu'
     - '1'
     - '--max-instances'
-    - '3'
+    - '2'
     - '--min-instances'
-    - '0'
+    - '1'
     - '--port'
     - '8055'
     - '--timeout'
@@ -58,13 +48,58 @@ steps:
     - '--set-env-vars'
     - 'DB_DATABASE=directus_db'
     - '--set-env-vars'
-    - 'DB_USER=postgres'
+    - 'DB_USER=directus'
     - '--set-env-vars'
-    - 'ADMIN_EMAIL=admin@example.com'
+    - 'PUBLIC_URL=https://admin.bradjohnson.ai'
     - '--set-env-vars'
-    - 'ADMIN_PASSWORD=changeme123'
+    - 'ACCEPT_TERMS=true'
     - '--set-env-vars'
-    - 'PUBLIC_URL=https://directus-ynj5h3auha-uc.a.run.app'
+    - 'TELEMETRY=false'
+    # Remove legacy bootstrap admin env to avoid confusion; use Directus users
+    - '--remove-env-vars'
+    - 'ADMIN_EMAIL,ADMIN_PASSWORD'
+    # Use the custom domain we control so absolute URLs and CORS/origin checks are consistent
+    # CORS: allow the app domains + localhost during development
+    - '--set-env-vars'
+    - 'CORS_ENABLED=true'
+    - '--set-env-vars=^:^CORS_ORIGIN=https://bradjohnson.ai,https://www.bradjohnson.ai,https://test.bradjohnson.ai,https://admin.bradjohnson.ai,http://localhost:5173,https://localhost:5173,http://127.0.0.1:5173,http://10.0.20.150:5173,http://localhost:4173,http://10.0.20.150:4173'
+    # Note: Rely on Directus defaults for CORS methods/headers; we only set origins.
+    # Email (SMTP via Resend)
+    - '--set-env-vars'
+    - 'EMAIL_TRANSPORT=smtp'
+    - '--set-env-vars'
+    - 'EMAIL_FROM=hello@magicsocial.ai'
+    - '--set-env-vars'
+    - 'EMAIL_SMTP_HOST=smtp.resend.com'
+    - '--set-env-vars'
+    - 'EMAIL_SMTP_PORT=465'
+    - '--set-env-vars'
+    - 'EMAIL_SMTP_USER=resend'
+    - '--set-env-vars'
+    - 'EMAIL_SMTP_SECURE=true'
+    - '--set-secrets'
+    - 'EMAIL_SMTP_PASSWORD=resend-smtp-key:latest'
+    # Cache configuration: disable Redis, use in-memory cache
+    - '--set-env-vars'
+    - 'CACHE_ENABLED=true'
+    - '--set-env-vars'
+    - 'CACHE_AUTO_PURGE=true'
+    - '--set-env-vars'
+    - 'CACHE_STORE=memory'
+    # Logging and WebSockets
+    - '--set-env-vars'
+    - 'LOG_LEVEL=warn'
+    - '--set-env-vars'
+    - 'WEBSOCKETS_ENABLED=true'
+    # Under-pressure: disable thresholds to suppress warnings on Cloud Run
+    - '--set-env-vars'
+    - 'UNDER_PRESSURE_MAX_EVENT_LOOP_DELAY=0'
+    - '--set-env-vars'
+    - 'UNDER_PRESSURE_MAX_HEAP_USED_BYTES=0'
+    - '--set-env-vars'
+    - 'UNDER_PRESSURE_MAX_RSS_BYTES=0'
+    - '--set-env-vars'
+    - 'UNDER_PRESSURE_MAX_EVENT_LOOP_UTILIZATION=0'
     - '--set-env-vars'
     - 'STORAGE_LOCATIONS=gcs'
     - '--set-env-vars'

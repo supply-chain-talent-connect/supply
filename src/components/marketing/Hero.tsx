@@ -43,7 +43,7 @@ export default function Hero() {
     }
   }, [hasHeadingNodes, finishAt])
   return (
-    <div className="relative mx-auto w-full max-w-[1800px] px-6">
+    <div className="relative mx-auto w-full max-w-[1800px] px-6">This is a test
       <div className="py-10 md:py-20">
         <div className="relative grid md:grid-cols-2 md:items-center">
           {/* Left: Map (borderless, bleeds to edge, underlaps text) */}

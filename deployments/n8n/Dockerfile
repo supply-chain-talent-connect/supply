@@ -1,4 +1,7 @@
-FROM n8nio/n8n:latest
+# Pin to a stable n8n version to avoid breaking changes in `latest`.
+# Update deliberately after testing.
+# Known-good baseline for current config (no task runners):
+FROM n8nio/n8n:1.67.1
 
 USER root
 
