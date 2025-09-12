@@ -23,17 +23,10 @@ jobs:
           # Create public directory if it doesn't exist
           mkdir -p public
           
-          # Fetch GitHub Actions IPs
-          echo "# GitHub Actions IP Addresses" > public/github-actions-ips.txt
-          echo "# Last updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> public/github-actions-ips.txt
-          echo "" >> public/github-actions-ips.txt
-          
+          # Fetch GitHub Actions IPs (only IP addresses, no comments or blank lines)
           curl -s https://api.github.com/meta \
             | jq -r '.actions[]' \
-            | grep -E '^[0-9]+\.' >> public/github-actions-ips.txt
-          
-          echo "" >> public/github-actions-ips.txt
-          echo "# Total IPs: $(grep -c '^[0-9]' public/github-actions-ips.txt || echo 0)" >> public/github-actions-ips.txt
+            | grep -E '^[0-9]+\.' > public/github-actions-ips.txt
       
       - name: Commit and Push
         run: |
