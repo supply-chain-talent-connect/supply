@@ -45,20 +45,7 @@ jobs:
           script: |
             set -euo pipefail
             cd /mnt/user/supply
-            
-            # Login to registry
             docker login ghcr.io -u bradjmsu -p ${{ secrets.GHCR_READ_PAT }} || exit 1
-            
-            # Pull the new image first (while old container still running)
-            docker compose pull supply || exit 1
-            
-            # Recreate container with minimal downtime
-            # Docker Compose will:
-            # 1. Stop the old container
-            # 2. Remove it
-            # 3. Create and start new container
-            # This happens in quick succession, typically < 1 second downtime
-            docker compose up -d supply --remove-orphans || exit 1
-            
-            # Clean up old images to save space
+            docker compose pull supply
+            docker compose up -d supply
             docker image prune -f
