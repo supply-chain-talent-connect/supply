@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 
 const LANGS = [
-  { code: 'en', native: 'English', flag: '🇬🇧' },
+  { code: 'en', native: 'English', flag: '🇺🇸' },
   { code: 'es', native: 'Español', flag: '🇪🇸' },
   { code: 'fr', native: 'Français', flag: '🇫🇷' },
   { code: 'de', native: 'Deutsch', flag: '🇩🇪' },

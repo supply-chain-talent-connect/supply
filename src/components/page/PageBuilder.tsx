@@ -8,6 +8,7 @@ import Features from '@/components/marketing/Features'
 import Pricing from '@/components/marketing/Pricing'
 import Testimonials from '@/components/marketing/Testimonials'
 import FAQ from '@/components/marketing/FAQ'
+import Pipeline from '@/components/marketing/Pipeline'
 
 const registry: Record<string, React.ComponentType<unknown>> = {
   hero: Hero,
@@ -17,6 +18,7 @@ const registry: Record<string, React.ComponentType<unknown>> = {
   pricing: Pricing,
   testimonials: Testimonials,
   faq: FAQ,
+  pipeline: Pipeline,
 }
 
 export default function PageBuilder() {
