@@ -60,7 +60,7 @@ const Navbar1 = ({
   const loginUrl = auth?.login?.url || '#'
   const signupUrl = auth?.signup?.url || '#'
   return (
-    <section className="py-3">
+    <section className="py-2">
       <div className="container max-w-[1600px]">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
@@ -68,7 +68,7 @@ const Navbar1 = ({
             {/* Logo */}
             {logo ? (
               <a href={logo.url} className="flex items-center gap-2">
-                <img src={logo.src} className="max-h-10 dark:invert" alt={logo.alt} />
+                <img src={logo.src} className="max-h-12 dark:invert" alt={logo.alt} />
                 {logo.title ? (
                   <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
                 ) : null}
@@ -104,7 +104,7 @@ const Navbar1 = ({
             {/* Logo */}
             {logo ? (
               <a href={logo.url} className="flex items-center gap-2">
-                <img src={logo.src} className="max-h-10 dark:invert" alt={logo.alt} />
+                <img src={logo.src} className="max-h-12 dark:invert" alt={logo.alt} />
               </a>
             ) : (
               <div className="size-8 rounded-full bg-muted" />
@@ -122,7 +122,7 @@ const Navbar1 = ({
                       <SheetTitle>
                         {logo ? (
                           <a href={logo.url} className="flex items-center gap-2">
-                            <img src={logo.src} className="max-h-10 dark:invert" alt={logo.alt} />
+                            <img src={logo.src} className="max-h-12 dark:invert" alt={logo.alt} />
                           </a>
                         ) : (
                           <div className="size-8 rounded-full bg-muted" />

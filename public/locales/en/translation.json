@@ -101,4 +101,10 @@
     "contactPrefix": "Need a custom plan?",
     "contactCta": "Let’s talk"
   }
+  ,
+  "team": {
+    "badge": "Team up!",
+    "heading": "The Minds Behind the Mission",
+    "subheading": "A dedicated team passionate about shaping the future of productivity."
+  }
 }

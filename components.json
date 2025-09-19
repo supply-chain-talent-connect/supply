@@ -19,6 +19,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@shadcnblocks": "https://shadcnblocks.com/registry.json"
+    "@shadcnblocks": "https://shadcnblocks.com/r/{name}.json"
   }
 }

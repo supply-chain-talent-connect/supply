@@ -6,6 +6,7 @@ import TrustLogos from '@/components/marketing/TrustLogos'
 import Community from '@/components/marketing/Community'
 import FeaturesComp from '@/components/marketing/Features'
 import Pricing from '@/components/marketing/Pricing'
+import { Team4 } from '@/components/team4'
 import BlogSection from '@/components/marketing/BlogSection'
 import Testimonials from '@/components/marketing/Testimonials'
 import FAQ from '@/components/marketing/FAQ'
@@ -21,6 +22,7 @@ const registry: Record<string, React.ComponentType<unknown>> = {
   faq: FAQ,
   pipeline: Pipeline,
   blog: BlogSection,
+  team: Team4,
 }
 
 export default function PageBuilder() {
