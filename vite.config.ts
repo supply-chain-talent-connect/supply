@@ -10,7 +10,7 @@ export default defineConfig({
     proxy: {
       // Proxy Directus requests during dev to avoid CORS
       '/directus': {
-        target: 'https://admin.bradjohnson.ai',
+        target: 'https://admin.logisticsleadman.com',
         changeOrigin: true,
         secure: true,
         rewrite: (path) => path.replace(/^\/directus/, ''),

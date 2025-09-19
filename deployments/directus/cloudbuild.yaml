@@ -50,7 +50,7 @@ steps:
     - '--set-env-vars'
     - 'DB_USER=directus'
     - '--set-env-vars'
-    - 'PUBLIC_URL=https://admin.bradjohnson.ai'
+    - 'PUBLIC_URL=https://admin.logisticsleadman.com'
     - '--set-env-vars'
     - 'ACCEPT_TERMS=true'
     - '--set-env-vars'
@@ -62,7 +62,7 @@ steps:
     # CORS: allow the app domains + localhost during development
     - '--set-env-vars'
     - 'CORS_ENABLED=true'
-    - '--set-env-vars=^:^CORS_ORIGIN=https://bradjohnson.ai,https://www.bradjohnson.ai,https://test.bradjohnson.ai,https://admin.bradjohnson.ai,http://localhost:5173,https://localhost:5173,http://127.0.0.1:5173,http://10.0.20.150:5173,http://localhost:4173,http://10.0.20.150:4173'
+    - '--set-env-vars=^:^CORS_ORIGIN=https://logisticsleadman.com,https://www.logisticsleadman.com,https://test.logisticsleadman.com,https://admin.logisticsleadman.com,http://localhost:5173,https://localhost:5173,http://127.0.0.1:5173,http://10.0.20.150:5173,http://localhost:4173,http://10.0.20.150:4173'
     # Note: Rely on Directus defaults for CORS methods/headers; we only set origins.
     # Email (SMTP via Resend)
     - '--set-env-vars'

@@ -4,8 +4,9 @@ import { fetchLandingPageOrder, type LandingPageBlock } from '@/features/pages/a
 import Hero from '@/components/marketing/Hero'
 import TrustLogos from '@/components/marketing/TrustLogos'
 import Community from '@/components/marketing/Community'
-import Features from '@/components/marketing/Features'
+import FeaturesComp from '@/components/marketing/Features'
 import Pricing from '@/components/marketing/Pricing'
+import BlogSection from '@/components/marketing/BlogSection'
 import Testimonials from '@/components/marketing/Testimonials'
 import FAQ from '@/components/marketing/FAQ'
 import Pipeline from '@/components/marketing/Pipeline'
@@ -14,11 +15,12 @@ const registry: Record<string, React.ComponentType<unknown>> = {
   hero: Hero,
   trust_logos: TrustLogos,
   community: Community,
-  features: Features,
+  features: (() => <FeaturesComp headerLayout="two-col" />) as React.ComponentType,
   pricing: Pricing,
   testimonials: Testimonials,
   faq: FAQ,
   pipeline: Pipeline,
+  blog: BlogSection,
 }
 
 export default function PageBuilder() {

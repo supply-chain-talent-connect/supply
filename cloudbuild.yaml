@@ -43,4 +43,4 @@ timeout: '1200s'
 options:
   logging: CLOUD_LOGGING_ONLY
 substitutions:
-  _VITE_DIRECTUS_URL: https://admin.bradjohnson.ai
+  _VITE_DIRECTUS_URL: https://admin.logisticsleadman.com

@@ -9,7 +9,7 @@ export type FeatureRecord = {
   show_on_landing_page?: boolean | null
   page_link?: string | null
   icon?: string | null
-  feature_image_or_video?: string | { id: string } | null
+  feature_image_or_video?: string | { id: string; type?: string | null } | null
   features_bullets?: number[] | null
 }
 
@@ -42,6 +42,7 @@ export type FeatureUI = {
   blurb?: string
   icon?: string
   assetId?: string
+  assetType?: string
   pageLink?: string
   bullets: string[]
   ctaLabel?: string
@@ -69,7 +70,9 @@ export async function fetchLandingFeatures(locale: string): Promise<FeatureUI[]>
           'label',
           'page_link',
           'icon',
-          'feature_image_or_video',
+          // Pull the related file id + mime type for correct rendering
+          'feature_image_or_video.id',
+          'feature_image_or_video.type',
           'features_bullets',
         ],
         sort: ['sort', 'id'],
@@ -160,6 +163,7 @@ export async function fetchLandingFeatures(locale: string): Promise<FeatureUI[]>
     const blurb = meta?.snippet || undefined
     const assetVal = f.feature_image_or_video
     const assetId = typeof assetVal === 'string' ? assetVal : assetVal?.id
+    const assetType = typeof assetVal === 'string' ? undefined : assetVal?.type || undefined
     const bulletsForFeature: string[] = []
     for (const bid of f.features_bullets || []) {
       const text = bulletMap.get(bid)
@@ -172,6 +176,7 @@ export async function fetchLandingFeatures(locale: string): Promise<FeatureUI[]>
       blurb,
       icon: f.icon || undefined,
       assetId: assetId ?? undefined,
+      assetType,
       pageLink: f.page_link || undefined,
       bullets: bulletsForFeature,
       ctaLabel: meta?.cta || undefined,
