@@ -26,7 +26,14 @@ NAS_CONTAINER="${NAS_CONTAINER:-postgresql15}"
 CLOUD_SQL_IP="${CLOUD_SQL_IP:-35.232.243.95}"
 CLOUD_SQL_DB="${CLOUD_SQL_DB:-directus_db}"
 CLOUD_SQL_USER="${CLOUD_SQL_USER:-postgres}"
-CLOUD_SQL_PASSWORD="${CLOUD_SQL_PASSWORD:-REDACTED_PASSWORD}"
+# Cloud SQL password should be set as environment variable
+if [ -z "$CLOUD_SQL_PASSWORD" ]; then
+    echo "Error: CLOUD_SQL_PASSWORD environment variable is not set"
+    echo "Please set it before running this script:"
+    echo "  export CLOUD_SQL_PASSWORD='your_secure_password'"
+    exit 1
+fi
+CLOUD_SQL_PASSWORD="${CLOUD_SQL_PASSWORD}"
 
 # Colors
 RED='\033[0;31m'

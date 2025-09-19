@@ -61,15 +61,22 @@ export default function HeadManager() {
       ])
       if (!active) return
 
+      // Helper to join prefix and value with a separator only if both exist
+      const joinWithSep = (a?: string, b?: string, sep = ' - '): string | undefined => {
+        const aa = a?.trim()
+        const bb = b?.trim()
+        if (aa && bb) return `${aa}${sep}${bb}`
+        return aa || bb || undefined
+      }
+
       // Title and description with optional prefixes
-      const title = [sw?.titlePrefix ?? '', lp?.title ?? ''].join('') || undefined
+      const title = joinWithSep(sw?.titlePrefix, lp?.title)
       if (title) {
         prevTitle.current = document.title
         document.title = title
       }
 
-      const description =
-        (sw?.descriptionPrefix || '') + (lp?.description || '') || undefined
+      const description = joinWithSep(sw?.descriptionPrefix, lp?.description)
       if (description) {
         const meta = ensureMeta('description')
         meta.setAttribute('content', description)
