@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Navbar from '@/components/layout/Navbar'
+import HeadManager from '@/components/layout/HeadManager'
 import useHeaderNavigation from '@/features/navigation/hooks/useHeaderNavigation'
 import useCompanyInfo from '@/features/navigation/hooks/useCompany'
 import { assetUrl } from '@/lib/directus'
@@ -25,6 +26,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
   return (
     <div className="min-h-dvh flex flex-col">
+      <HeadManager />
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur border-b">
         <Navbar menu={menu} logo={logo} />
       </header>

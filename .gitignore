@@ -32,6 +32,17 @@ dist-*.tar.gz
 .env.production
 .env.staging
 
+# Docker compose files with sensitive data
+deployments/directus/docker-compose.local.yml
+deployments/*/docker-compose.local.yml
+docker-compose.local.yml
+
+# Service account keys and credentials
+*-key.json
+*.key.json
+*credentials*.json
+*service-account*.json
+
 # Generated files
 /src/generated/prisma
 
